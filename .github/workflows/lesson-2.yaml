@@ -5,14 +5,14 @@ on:
     branches:
       - lesson-2
 jobs:
-  build_and_test:
+  unit_test:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: backend
     steps:
-      - uses: actions/checkout@7.0.1
-      - name: Set up Python 3.10
+      - name: Checkout
+      - uses: actions/checkout@v7.0.1
       - uses: actions/setup-python@v7
         with:
           python-version: '3.10'
@@ -25,7 +25,7 @@ jobs:
           coverage run -m --source=./hangry_api pytest  
           coverage report
   deploy:  # as jobs run in parallel, we need to make sure that 
-    needs: [build_and_test]   # the deployment job runs after the build_and_test job is completed successfully
+    needs: [unit_test]   # the deployment job runs after the unit_test job is completed successfully
     runs-on: ubuntu-latest
     defaults:
       run:
