@@ -7,6 +7,7 @@ on:
 jobs:
   deploy:  # as jobs run in parallel, we need to make sure that 
     needs: [build_and_test]   # the deployment job runs after the build_and_test job is completed successfully
+  unit_tests:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -20,7 +21,7 @@ jobs:
         run: zip -r deploy.zip . -x '*.git*'
       - name: '**PLACEHOLDER** Deploy to Elastic Beanstalk'
         run: echo Placeholder for Deployment
-  unit_tests:
+
   build_and_test:
     runs-on: ubuntu-latest
     steps:
